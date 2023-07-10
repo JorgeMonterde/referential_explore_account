@@ -25,7 +25,7 @@ require("./utils/db_mongo");
 // Routes modules
 const usersApiRoutes = require('./routes/usersApiRoutes');
 const projectsApiRoutes = require('./routes/projectsApiRoutes');
-const artworksApiRoutes = require('./routes/artworksApiRoutes');
+//const artworksApiRoutes = require('./routes/artworksApiRoutes');
 const authRoutes = require('./routes/authRoutes.js');
 
 // Middlewares
@@ -36,7 +36,7 @@ app.use(cookieParser()); //Better access to cookies
 //Routes 
 app.use('/api/users/user',usersApiRoutes); // Users routes
 app.use('/api/users/project',projectsApiRoutes); // Projects routes
-app.use('/api/users/artworks',artworksApiRoutes); // Artworks routes
+//app.use('/api/users/artworks',artworksApiRoutes); // Artworks routes
 app.use('/auth',authRoutes); // Auth routes
 
 app.use(error404);
@@ -46,3 +46,4 @@ const server = app.listen(port, () => {
 })
 
 module.exports = server;
+

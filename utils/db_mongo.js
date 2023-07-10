@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // DB on Atlas
 // With this string you can enter throw Compass: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASS}@cluster0.lhlyvrl.mongodb.net/`
-mongoose.connect(`mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASS}@cluster0.ej5bzwe.mongodb.net/`)
+mongoose.connect(`mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASS}@cluster0.ej5bzwe.mongodb.net/referential_explore_account?retryWrites=true&w=majority`)
     .catch(error => handleError(error)); // Error handling recommended by documentation
 
 const db = mongoose.connection;
