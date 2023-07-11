@@ -37,7 +37,7 @@ const getAllArtworksIDsFromUser = async(projectId) => {
 }
 
 // Add an artwork to a user's project (user)
-const addArtwork = async(projectId, artworkId, artwork_mongoId) => {
+const addArtworkToProject = async(projectId, artworkId, artwork_mongoId) => {
     let client, result;
     try{
         client = await pool.connect();
@@ -54,7 +54,7 @@ const addArtwork = async(projectId, artworkId, artwork_mongoId) => {
 };
 
 // Delete an artwork from a user's project (user)
-const deleteArtwork = async(projectId,artworkId) => {
+const deleteArtworkFromProject = async(projectId,artworkId) => {
     let client, result;
     try{
         client = await pool.connect();
@@ -79,6 +79,6 @@ const deleteArtwork = async(projectId,artworkId) => {
 module.exports = {
     getAllArtworksIDsFromProject,
     getAllArtworksIDsFromUser,
-    addArtwork,
-    deleteArtwork
+    addArtworkToProject,
+    deleteArtworkFromProject
 }

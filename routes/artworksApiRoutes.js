@@ -3,15 +3,13 @@ const artworksApiRouter = express.Router();
 const artworksApiController = require ('../controllers/artworksApiController');
 const authMiddleware = require("../middlewares/authMiddleware");
 
-//Route: "api/users/artworks"
+//Route: "api/artworks"
 //GETs
-artworksApiRouter.get("/", authMiddleware.authCheck, artworksApiController); // Gets artworks (from project or from collection)
+artworksApiRouter.get("/:project_id?", artworksApiController.getUserArtworks); // Gets artworks (from project or from collection)
 //POSTs
-artworksApiRouter.post("/", authMiddleware.authCheck, artworksApiController);// Add artwork to a project (user)
-//PUTs
-artworksApiRouter.put("/", authMiddleware.authCheck, artworksApiController);// Edit artwork (user)
+artworksApiRouter.post("/", authMiddleware.authCheck, artworksApiController.addArtworkToProject);// Add artwork to a project (user)
 //DELETEs
-artworksApiRouter.delete("/", authMiddleware.authCheck, artworksApiController); // Delete user's artwork (from project or from collection) (user)
+artworksApiRouter.delete("/", authMiddleware.authCheck, artworksApiController.deleteFavorite); // Delete user's artwork (from project or from collection) (user)
 
 
 module.exports = artworksApiRouter;

@@ -25,8 +25,9 @@ require("./utils/db_mongo");
 // Routes modules
 const usersApiRoutes = require('./routes/usersApiRoutes');
 const projectsApiRoutes = require('./routes/projectsApiRoutes');
-//const artworksApiRoutes = require('./routes/artworksApiRoutes');
-const authRoutes = require('./routes/authRoutes.js');
+const artworksApiRoutes = require('./routes/artworksApiRoutes');
+const artworksDetailsApiRoutes = require('./routes/artworksDetailsApiRoutes.js');
+const authRoutes = require('./routes/authRoutes');
 
 // Middlewares
 app.use(express.json()); // Enable data type to receive
@@ -36,7 +37,8 @@ app.use(cookieParser()); //Better access to cookies
 //Routes 
 app.use('/api/users/user',usersApiRoutes); // Users routes
 app.use('/api/users/project',projectsApiRoutes); // Projects routes
-//app.use('/api/users/artworks',artworksApiRoutes); // Artworks routes
+app.use('/api/users/artworks',artworksApiRoutes); // Artworks routes
+app.use('/api/artworks',artworksDetailsApiRoutes); // Artworks Details routes
 app.use('/auth',authRoutes); // Auth routes
 
 app.use(error404);
