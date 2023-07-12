@@ -6,8 +6,10 @@ const projectsQueries = {
         specification)
     VALUES ($1, $2, $3, $4)`,
     deleteProject:`DELETE FROM projects
-    WHERE user_id=$1 AND project_id=$2`,
-    getAllProjectsIDs:`SELECT project_id
+    WHERE project_id=$1`,
+    getAllProjects:`SELECT project_id,
+    title,
+    specification
     FROM public.projects
     WHERE user_id = $1`,
     updateProject:`
@@ -21,4 +23,3 @@ module.exports = projectsQueries;
 
 
 
-   

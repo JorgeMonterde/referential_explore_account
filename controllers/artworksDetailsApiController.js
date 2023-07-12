@@ -1,10 +1,13 @@
+//import axios from "axios"; -----> some error with axios too??
 const artworks = require("../models/artworks"); //model from SQL DB
 const ArtworkDetails = require('../models/artworksDetails');  //model from NoSQL DB
 //import {searchArtworksFromExternalAPI} from "../utils/externalApiRequests";
 
-//auxiliar function: ------------------------------> module.exports dont allow to nest imports from different files...?!
+
+//auxiliar function: ------------------------------> "module.exports" dont allow to nest imports from different files...?!
 // get artworks from Art Institute of Chicago API:
 async function getSearchResults(word){
+    console.log("1º: ", word)
     let artworkIds = [];
     let iiifUrlConfig;
     let searchResults = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${word}`)
@@ -17,12 +20,11 @@ async function getSearchResults(word){
 };
 
 async function getCompleteArtworkInfo(results){
+    console.log("2º: ", results)
     // Create endpoints: 
     let endpoint = "https://api.artic.edu/api/v1/artworks?ids=";
-    await results.then(obj => {
-        let {artworkIds} = obj;
+    let {artworkIds} = results;
         endpoint += artworkIds.toString();
-    });
     let info = [];
     // Get:
     await fetch(endpoint).then(res => res.json())
@@ -35,18 +37,14 @@ async function getCompleteArtworkInfo(results){
 };
 
 async function getImagesSrc(artworkInfo, results){
-    console.log(artworkInfo)
+    console.log("3º: ", artworkInfo, results)
     let imageIdArr = [];
-    await artworkInfo.then(info => {
-        console.log(info)
-        info.forEach(artwork => imageIdArr.push(artwork.image_id));
-    });
+    artworkInfo.forEach(artwork => imageIdArr.push(artwork.image_id));
     // "https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg"
     // Create image src:
-    let iiifUrlConfig;
-    await results.then(item => {
-        iiifUrlConfig = item.iiifUrlConfig
-    });
+
+    let iiifUrlConfig = results.iiifUrlConfig;
+    
     for (let i in imageIdArr) {
         imageIdArr[i] = `${iiifUrlConfig}/${imageIdArr[i]}/full/843,/0/default.jpg`
     };
@@ -78,14 +76,16 @@ async function searchArtworksFromExternalAPI(word){
 //GETs
 // get artworks details searching by a word:
 const searchArtworks = async (req,res) => {
-    const word = req.params.search;
+    const search = req.params;
+    console.log("search: ", search)
     try {
-        let data = searchArtworksFromExternalAPI(word); //[{"info": artworkInfo[i], "img": imgSrcArr[i]}, {}, {}, ...]
+        let data = await searchArtworksFromExternalAPI(search); //[{"info": artworkInfo[i], "img": imgSrcArr[i]}, {}, {}, ...]
+        console.log("data: ", data)
         if (!data[0]){
-            console.log("No artworks found :(");
+            console.log("Artworks not found :(");
             res.status(204).json({
                 "success": false,
-                "message": `No artworks found while searching by "${word}": ${data}`
+                "message": `No artworks found while searching by "${search}": ${data}`
             });
         } else {
             console.log("Artworks found: ", data);
@@ -106,28 +106,29 @@ const searchArtworks = async (req,res) => {
 }
 
 
+
 //POSTs
 //Add artwork details to database (user or admin)
 const createNewArtworkDetails = async (req,res) => {
     console.log("Check new artwork details: ", req.body);
-    let {artwork_info, is_public, creator_id} = req.body;
-    let {title, author, description, year, media, dimensions, medium_display, front_image, other_images, coord} = artwork_info;
+    let {artworkInfo, isPublic, creatorId} = req.body;
+    let {title, author, description, year, media, dimensions, mediumDisplay, frontImage, otherImages, coord} = artworkInfo;
     try {
         const newArtworkDetails = new ArtworkDetails({
             "artwork_info": {
-                title,
-                author,
-                description,
-                year,
-                media,
-                dimensions,
-                medium_display,
-                front_image,
-                other_images,
-                coord
+                "title": title,
+                "author": author,
+                "description": description,
+                "year": year,
+                "media": media,
+                "dimensions": dimensions,
+                "medium_display": mediumDisplay,
+                "front_image": frontImage,
+                "other_images": otherImages,
+                "coord": coord
             },
-            is_public,
-            creator_id
+            "is_public": isPublic,
+            "creator_id": creatorId
         });
         const data = await newArtworkDetails.save();
         console.log(`Artwork details saved: ${data}`);
@@ -135,9 +136,8 @@ const createNewArtworkDetails = async (req,res) => {
             "success": true,
             "message": `Artwork details created: ${data}`
         });
-    }        
-    
-    catch (error) {
+
+    } catch (error) {
         console.log(`ERROR: ${error}`);
         res.status(400).json({
             "success": false,
@@ -152,10 +152,28 @@ const createNewArtworkDetails = async (req,res) => {
 // Edit artwork details (admin)
 const editArtworkDetails = async (req, res) => {
     try {
-        const artworkMongoId = req.body.data;
-        const updatedDetails = req.body.data;
-        const data = await ArtworkDetails.replaceOne({"_id": artworkMongoId}, updatedDetails);
-        console.log("edit artwork details successfully: ", data);
+        let {artworkMongoId, updatedDetails} = req.body;
+        /* const data = await ArtworkDetails.replaceOne({"_id": artworkMongoId}, updatedDetails); */
+        
+        //fill uncomplete fields and set updated object:
+        let prevDetails = await ArtworkDetails.findById(artworkMongoId).exec();
+        let updatedArtworkInfo = updatedDetails.artwork_info;
+        const infoFields = Object.keys(prevDetails.artwork_info);
+
+        prevDetails = {...prevDetails.artwork_info, "artwork_info": updatedArtworkInfo} 
+        for (let field of infoFields){
+            if (!updatedArtworkInfo[field]){
+                updatedArtworkInfo[`${field}`] = prevDetails[field];
+                console.log("HEY", `updatedArtworkInfo[${field}]`, "HELLO", prevDetails[field]);
+            }
+        }
+        updatedDetails = {
+            "artwork_info": updatedArtworkInfo,
+            "is_public": updatedDetails.is_public || prevDetails.is_public,
+            "creator_id": updatedDetails.creator_id ||  prevDetails.creator_id
+        }
+
+        const data = await ArtworkDetails.findOneAndUpdate({"_id": artworkMongoId}, {$set: updatedDetails}, {new: true});
         res.status(200).json({
             "success": true,
             "message": `Artwork details updated: ${data}`
@@ -175,15 +193,19 @@ const editArtworkDetails = async (req, res) => {
 //Delete artwork details from DDBB (creator or admin)
 const deleteArtworkDetails = async (req, res) => {
     try {
-        console.log(req.params.id);
-        const data = await Project.deleteOne({_id : req.params.id});
-        res.status(200).json(data);
+        const artworkDetailsId = req.params.id;
+        const data = await ArtworkDetails.deleteOne({_id : artworkDetailsId});
         console.log(data);
+        res.status(200).json({
+            "success": true,
+            "message": `Artwork details (id:${artworkDetailsId}) deleted: ${data}`
+        });
     } catch (error) {
+        console.log("ERROR: ", error);
         res.status(404).json({
-            "Error": `${error}`
+            "success": false,
+            "message": `Error: ${error}`
         })
-        console.log(error);
     }
 };
 

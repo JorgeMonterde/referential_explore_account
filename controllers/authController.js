@@ -75,7 +75,7 @@ const createAndStoreTokenViaEmail = (req,res)=>{
     res.status(201).cookie("access-token", token, {
         httpOnly: true,
         sameSite: "lax"
-    }).json({"success": true, "msj":"Welcome, you are logged in"});
+    }).json({"success": true, "message":"Welcome, you are logged in"});
 }
 
 

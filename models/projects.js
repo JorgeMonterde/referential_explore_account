@@ -20,11 +20,11 @@ const addProject = async(userId, projectId, title, specification) => {
 };
 
 // Delete a project from user's projects list (user)
-const deleteProject = async(userId, projectId) => {
+const deleteProject = async(projectId) => {
     let client, result;
     try{
         client = await pool.connect();
-        const data = await client.query(projectsQueries.deleteProject,[userId, projectId]);
+        const data = await client.query(projectsQueries.deleteProject,[projectId]);
         result = data.rowCount;
         if(result==0){
             console.log("Warning: user_id or project_id not found in SQL DDBB");
@@ -39,11 +39,11 @@ const deleteProject = async(userId, projectId) => {
 };
 
 // Get all projects ids
-const getAllProjectsIds = async(userId) => {
+const getAllProjects = async(userId) => {
     let client, result;
     try {
         client = await pool.connect();
-        const data = await client.query(projectsQueries.getAllProjectsIDs, [userId]);
+        const data = await client.query(projectsQueries.getAllProjects, [userId]);
         result = data.rows;
         console.log(result);
     } catch(err) {
@@ -79,6 +79,6 @@ const updateUser = async(projectId, title, specification) => {
 module.exports = {
     addProject,
     deleteProject,
-    getAllProjectsIds,
+    getAllProjects,
     updateUser
 }

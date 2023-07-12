@@ -8,8 +8,9 @@ const getUserInfo = async (req,res) => {
         let {email} = req.decoded.data;
         let data = await users.getUserByEmail(email);
         res.status(200).json({
-            "data": data,
-            "msj": "User info supplied"
+            "success": true,
+            "message": `User info supplied: ${data}`,
+            "data": data
         });
     } catch (error) {
         console.log(`Error: ${error}`);
@@ -25,7 +26,10 @@ const createUser = async (req,res) => {
         let logged = false;
         let createInfo = await users.createUser(email, password, user_name, admin, firstname, surename, logged);
         
-        res.status(200).redirect("/login"); //It would be great to redirect to "/login" but it doesnt work
+        res.status(200).json({
+            "success": true,
+            "message": `User created: ${createInfo}`
+        });
     } catch (error) {
         console.log(`Error: ${error}`);
     }
@@ -58,8 +62,9 @@ const editUserProfile = async (req,res) => {
         let editedInfo = await users.updateUser(id_user, email, password, userName, firstName, sureName);
 
         res.status(200).json({
-            "items_updated": editedInfo,
-            "msj": "Items edited successfully"
+            "success": true,
+            "message": `User profile updated`,
+            "data": editedInfo
         });
     } catch (error) {
         console.log(`Error: ${error}`);
@@ -74,8 +79,9 @@ const deleteUser = async (req,res) => {
         let deleteInfo = await users.deleteUser(id_user);
 
         res.status(200).json({
-            "user deleted": deleteInfo,
-            "msj": "User deleted successfully"
+            "success": true,
+            "message": `User deleted`,
+            "data": deleteInfo
         });
     } catch (error) {
         console.log(`Error: ${error}`);

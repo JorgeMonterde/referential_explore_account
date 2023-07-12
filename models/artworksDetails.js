@@ -58,7 +58,7 @@ const objectSchema = {
 const artworkDetailsSchema = mongoose.Schema(objectSchema);
 
 // create model using schema
-const ArtworkDetails = mongoose.model('ArtworkDetails', artworkDetailsSchema);
+const ArtworkDetails = mongoose.model('artworks_details', artworkDetailsSchema);
 
 // document example
 const newArtworkDetails = new ArtworkDetails({
