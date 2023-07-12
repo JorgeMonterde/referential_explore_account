@@ -3,7 +3,7 @@ const artworksApiRouter = express.Router();
 const artworksApiController = require ('../controllers/artworksApiController');
 const authMiddleware = require("../middlewares/authMiddleware");
 
-//Route: "api/artworks"
+//Route: "api/users/artwork"
 //GETs
 artworksApiRouter.get("/:project_id?", artworksApiController.getUserArtworks); // Gets artworks (from project or from collection)
 //POSTs

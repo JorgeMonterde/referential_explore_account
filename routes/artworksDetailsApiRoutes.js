@@ -3,7 +3,7 @@ const artworksDetailsApiRouter = express.Router();
 const artworksDetailsApiController = require ('../controllers/artworksDetailsApiController');
 const authMiddleware = require("../middlewares/authMiddleware")
 
-//Route: "api/users/project"
+//Route: "api/artworks"
 //GETs
 artworksDetailsApiRouter.get("/search/:search?", artworksDetailsApiController.searchArtworks); // search artworks from the api (InstitueChicageAPI) (v2.0 -> ... or the user collection)
 //POSTs
