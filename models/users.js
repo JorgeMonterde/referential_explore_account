@@ -109,11 +109,11 @@ const updateUserPassword = async(email, hashedPassword) => {
 };
 
 // Delete user will be done by admin in "users view" and by the user himself:
-const deleteUser = async(email) => {
+const deleteUser = async(user_id) => {
     let client, result;
     try{
         client = await pool.connect();
-        const data = await client.query(usersQueries.deleteUser,[email]);
+        const data = await client.query(usersQueries.deleteUser,[user_id]);
         result = data.rowCount;
         console.log("delete user: ", result);
     }catch(err){

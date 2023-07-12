@@ -20,11 +20,11 @@ const getUserInfo = async (req,res) => {
 //POSTs
 //create user
 const createUser = async (req,res) => {
-    let {email, password, user_name, admin, firstname, surename} = req.body; // {email, password, user_name, admin, firstname, surename}
+    let {email, hashed_password, user_name, admin, firstname, surname} = req.body; // {email, password, user_name, admin, firstname, surname}
     try {
         // "user_id" is automatically added by SQL DDBB
         let logged = false;
-        let createInfo = await users.createUser(email, password, user_name, admin, firstname, surename, logged);
+        let createInfo = await users.createUser(email, hashed_password, user_name, admin, firstname, surname, logged);
         
         res.status(200).json({
             "success": true,
@@ -40,7 +40,7 @@ const createUser = async (req,res) => {
 const editUserProfile = async (req,res) => {
     try {
         let {id_user} = req.decoded.data;
-        let {email, password, userName, firstName, sureName} = req.body;
+        let {email, password, user_name, firstname, surname} = req.body;
         // If a field is not filled, do it with the current value
         if(email == ""){
             email = req.decoded.data.email;
@@ -48,18 +48,18 @@ const editUserProfile = async (req,res) => {
         if (password == "") {
             password = req.decoded.data.password;
         };
-        if (userName == "") {
-            userName = req.decoded.data.user_name;
+        if (user_name == "") {
+            user_name = req.decoded.data.user_name;
         };
-        if (firstName == "") {
-            firstName = req.decoded.data.firstname;
+        if (firstname == "") {
+            firstname = req.decoded.data.firstname;
         };
-        if (sureName == "") {
-            sureName = req.decoded.data.surename;
+        if (surname == "") {
+            surname = req.decoded.data.surname;
         };
 
         // "user_id" goes in "userInfo" to search the user row in the DDBB.
-        let editedInfo = await users.updateUser(id_user, email, password, userName, firstName, sureName);
+        let editedInfo = await users.updateUser(id_user, email, password, user_name, firstname, surname);
 
         res.status(200).json({
             "success": true,
@@ -74,9 +74,9 @@ const editUserProfile = async (req,res) => {
 //DELETEs
 // Delete a user from DDBB (admin)
 const deleteUser = async (req,res) => {
-    let {id_user} = req.body; // delete by user by id
+    let user_id = req.params.id; // delete by user by id
     try {
-        let deleteInfo = await users.deleteUser(id_user);
+        let deleteInfo = await users.deleteUser(user_id);
 
         res.status(200).json({
             "success": true,

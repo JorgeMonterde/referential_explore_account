@@ -11,7 +11,7 @@ usersApiRouter.post("/", usersApiController.createUser);// Create user
 //PUTs
 usersApiRouter.put("/", authMiddleware.authCheck, usersApiController.editUserProfile); // Edit user profile (user and admin)
 //DELETEs
-usersApiRouter.delete("/", usersApiController.deleteUser); // Delete a user from DDBB (admin)
+usersApiRouter.delete("/:id?", usersApiController.deleteUser); // Delete a user from DDBB (admin)
 
 
 module.exports = usersApiRouter;

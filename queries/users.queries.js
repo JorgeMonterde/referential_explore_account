@@ -52,7 +52,7 @@ const usersQueries = {
     WHERE email=$1;`,
     deleteUser:`
     DELETE FROM users
-    WHERE email=$1;`,
+    WHERE user_id=$1;`,
     loggedTrue:`
     UPDATE users
     SET logged = true
