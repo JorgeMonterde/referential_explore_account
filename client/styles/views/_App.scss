@@ -59,3 +59,8 @@ a{
     text-decoration: none;
     font-size: 2.5em;
 }
+
+button {
+    background-color: $button-hover-color;
+    color: $button-hover-background-color;
+}

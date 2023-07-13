@@ -20,7 +20,7 @@ async function getSearchResults(word){
 };
 
 async function getCompleteArtworkInfo(results){
-    console.log("2º: ", results)
+    //console.log("2º: ", results)
     // Create endpoints: 
     let endpoint = "https://api.artic.edu/api/v1/artworks?ids=";
     let {artworkIds} = results;
@@ -37,7 +37,7 @@ async function getCompleteArtworkInfo(results){
 };
 
 async function getImagesSrc(artworkInfo, results){
-    console.log("3º: ", artworkInfo, results)
+    //console.log("3º: ", artworkInfo, results)
     let imageIdArr = [];
     artworkInfo.forEach(artwork => imageIdArr.push(artwork.image_id));
     // "https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg"
@@ -76,11 +76,10 @@ async function searchArtworksFromExternalAPI(word){
 //GETs
 // get artworks details searching by a word:
 const searchArtworks = async (req,res) => {
-    const search = req.params;
+    const search = req.params.search;
     console.log("search: ", search)
     try {
         let data = await searchArtworksFromExternalAPI(search); //[{"info": artworkInfo[i], "img": imgSrcArr[i]}, {}, {}, ...]
-        console.log("data: ", data)
         if (!data[0]){
             console.log("Artworks not found :(");
             res.status(204).json({
@@ -89,7 +88,7 @@ const searchArtworks = async (req,res) => {
                 "data":data
             });
         } else {
-            console.log("Artworks found: ", data);
+            //console.log("Artworks found: ", data);
             res.status(200).json({
                 "success": true,
                 "message": "Artworks info supplied",

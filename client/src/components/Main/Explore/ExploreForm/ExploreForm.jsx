@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 
   /* {
     "artwork_info": {
@@ -33,10 +34,17 @@ const ExploreForm = (props) => {
   useEffect(() => {
       const getArtworksInfo = async(search) => {
         // get artwork info from api
-        const response = await fetch(`${apiKey}`);
-        const data = await response.json();
-        setArtworksInfo(data);
+        const response = await axios.get(`api/artworks/search/${search}`);
+        
+        if(response.data.success){
+          setArtworksInfo(response.data.data);
+          console.log(response.data.message)
+        } else {
+          console.log("Something went wrong...")
+        }
+        
       };
+      console.log("---->",search)
       getArtworksInfo(search);
   }, [search])
 
