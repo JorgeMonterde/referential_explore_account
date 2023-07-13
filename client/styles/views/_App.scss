@@ -1,0 +1,61 @@
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+/* *{
+    border: solid black 1px;
+} */
+
+/* #root{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 1fr 100px;
+    gap:10px;
+} */
+
+body{
+    display: flex;
+    flex-direction: column;
+    
+    margin:0;
+    padding:0%;
+    background-color: $general-background-color;
+}
+
+ul{
+    font-family: $normal-font;
+    padding: 0;
+    list-style-type: none;
+}
+
+h1{
+    font-family: $titles-font;
+    font-size: 43px;
+}
+
+h2{
+    font-family: $titles-font;
+}
+
+h3{
+    font-family: $titles-font;
+}
+
+h4{
+    font-family: $titles-font;
+    
+}
+
+p{
+    font-family: $normal-font;
+}
+
+input{
+    border: $input-border-color solid 2px;
+    border-radius: $input-border-radius;
+    padding: 1%;
+}
+
+a{
+    text-decoration: none;
+    font-size: 2.5em;
+}
