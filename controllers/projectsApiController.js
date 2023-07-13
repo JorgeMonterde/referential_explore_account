@@ -20,6 +20,11 @@ const getUserProjectsIds = async (req,res) => {
         }
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 }
 
@@ -38,6 +43,11 @@ const createProject = async(req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 }
 
@@ -62,6 +72,12 @@ const editProjectInfo = async (req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
+
     }
 }; 
 
@@ -80,6 +96,11 @@ const deleteProject = async(req, res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 };
 

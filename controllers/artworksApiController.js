@@ -15,19 +15,26 @@ const getUserArtworks = async (req,res) => {
             let artworksDetailsIds = data.map(item => item.artwork_mongo_id);
             if (!artworksDetailsIds[0]){
                 res.status(204).json({
-                    "success": false,
-                    "message": "There are no artworks in this project"
+                    "success": true,
+                    "message": "There are no artworks in this project",
+                    "data": ""
                 });
             } else {
                 //let artworksDetails = await ArtworksDetails.find({ '_id': { $in: artworksDetailsIds } });
                 let artworksDetails = await ArtworkDetails.find().where("_id").in(artworksDetailsIds).exec(); 
                 res.status(200).json({
                     "success": true,
-                    "message": `Artworks details provided: ${artworksDetails}`
+                    "message": `Artworks details provided: ${artworksDetails}`,
+                    "data":artworksDetails
                 });
             }
         } catch (error) {
             console.log(`Error: ${error}`);
+            res.status(400).json({
+                "success": false,
+                "message": `Error: ${error}`,
+                "data": ""
+            });
         }
 
     } else { //all artworks of a user's collection
@@ -37,19 +44,26 @@ const getUserArtworks = async (req,res) => {
             let artworksDetailsIds = data.map(item => item.artwork_mongo_id);
             if (!artworksDetailsIds[0]){
                 res.status(204).json({
-                    "success": false,
-                    "message": `There are no artworks in the user's collection (user_id: ${user_id})` 
+                    "success": true,
+                    "message": `There are no artworks in the user's collection (user_id: ${user_id})`,
+                    "data": ""
                 });
             } else {
                 //let artworksDetails = await ArtworksDetails.find({ '_id': { $in: artworksDetailsIds } });
                 let artworksDetails = await ArtworkDetails.find().where("_id").in(artworksDetailsIds).exec(); 
                 res.status(200).json({
                     "success": true,
-                    "message": `Artworks details provided: ${artworksDetails}`
+                    "message": `Artworks details provided: ${artworksDetails}`,
+                    "data":artworksDetails
                 });
             }
         } catch (error) {
             console.log(`Error: ${error}`);
+            res.status(400).json({
+                "success": false,
+                "message": `Error: ${error}`,
+                "data": ""
+            });
         }
     }
 }
@@ -69,6 +83,11 @@ const addArtworkToProject = async(req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 }
 
@@ -82,10 +101,16 @@ const deleteFavorite = async(req, res) => {
         console.log(deletedInfo)
         res.status(200).json({
             "success": true,
-            "message": `Artwork (id: ${artworkId}) deleted from project(id: ${projectId})`
+            "message": `Artwork (id: ${artworkId}) deleted from project(id: ${projectId})`,
+            "data":deletedInfo
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 };
 

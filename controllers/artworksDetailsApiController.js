@@ -84,8 +84,9 @@ const searchArtworks = async (req,res) => {
         if (!data[0]){
             console.log("Artworks not found :(");
             res.status(204).json({
-                "success": false,
-                "message": `No artworks found while searching by "${search}": ${data}`
+                "success": true,
+                "message": `No artworks found while searching by "${search}": ${data}`,
+                "data":data
             });
         } else {
             console.log("Artworks found: ", data);
@@ -99,8 +100,8 @@ const searchArtworks = async (req,res) => {
         console.log(`Error: ${error}`);
         res.status(400).json({
             "success": false,
-            "message": `Could not search by word`,
-            "data": error
+            "message": `Error: ${error}`,
+            "data": ""
         });
     }
 }
@@ -134,15 +135,16 @@ const createNewArtworkDetails = async (req,res) => {
         console.log(`Artwork details saved: ${data}`);
         res.status(201).json({
             "success": true,
-            "message": `Artwork details created: ${data}`
+            "message": `Artwork details created: ${data}`,
+            "daya": data
         });
 
     } catch (error) {
         console.log(`ERROR: ${error}`);
         res.status(400).json({
             "success": false,
-            "message": `Could not create new artwork details`,
-            "data": error
+            "message": `Error: ${error}`,
+            "data": ""
         });
     }
 }
@@ -176,15 +178,16 @@ const editArtworkDetails = async (req, res) => {
         const data = await ArtworkDetails.findOneAndUpdate({"_id": artworkMongoId}, {$set: updatedDetails}, {new: true});
         res.status(200).json({
             "success": true,
-            "message": `Artwork details updated: ${data}`
+            "message": `Artwork details updated: ${data}`,
+            "data":data
         });
 
     } catch (error) {
         console.log(`ERROR: ${error}`);
         res.status(400).json({
             "success": false,
-            "message": `Could not update artwork details`,
-            "data": error
+            "message": `Error: ${error}`,
+            "data": ""
         });
     }
 }; 
@@ -198,14 +201,16 @@ const deleteArtworkDetails = async (req, res) => {
         console.log(data);
         res.status(200).json({
             "success": true,
-            "message": `Artwork details (id:${artworkDetailsId}) deleted: ${data}`
+            "message": `Artwork details (id:${artworkDetailsId}) deleted: ${data}`,
+            "data":data
         });
     } catch (error) {
         console.log("ERROR: ", error);
-        res.status(404).json({
+        res.status(400).json({
             "success": false,
-            "message": `Error: ${error}`
-        })
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 };
 

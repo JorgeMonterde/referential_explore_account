@@ -14,6 +14,11 @@ const getUserInfo = async (req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 }
 
@@ -28,10 +33,16 @@ const createUser = async (req,res) => {
         
         res.status(200).json({
             "success": true,
-            "message": `User created: ${createInfo}`
+            "message": `User created: ${createInfo}`,
+            "data":createInfo
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 };
 
@@ -68,6 +79,11 @@ const editUserProfile = async (req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 }; 
 
@@ -85,6 +101,11 @@ const deleteUser = async (req,res) => {
         });
     } catch (error) {
         console.log(`Error: ${error}`);
+        res.status(400).json({
+            "success": false,
+            "message": `Error: ${error}`,
+            "data": ""
+        });
     }
 };
 
