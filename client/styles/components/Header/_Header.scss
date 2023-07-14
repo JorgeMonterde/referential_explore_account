@@ -5,5 +5,10 @@
     padding:$main-brothers-padding;
     /* margin:$main-brothers-margin; */
 
+    position:sticky;
+    top:0px;
+
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     
 }

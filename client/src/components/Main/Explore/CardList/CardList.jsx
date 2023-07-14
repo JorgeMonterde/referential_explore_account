@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import Card from "./Card/Card";
 
 
+
 const CardList = (props) => {
   const {artworksInfo} = props;
 
@@ -17,7 +18,7 @@ const CardList = (props) => {
       "title": info.title,
       img,
       "author": info.artist_title,
-      "year": info.title,
+      "year": info.date_end,
       "medium_display": info.medium_display
     }
   };
@@ -34,8 +35,13 @@ const CardList = (props) => {
   return (
     <section className="card-list">
       {artworksInfo[0] ? printCards() : ""}
+
     </section>
   );
 };
 
 export default CardList;
+
+
+
+

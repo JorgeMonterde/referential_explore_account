@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/authMiddleware")
 
 //Route: "api/artworks"
 //GETs
-artworksDetailsApiRouter.get("/search/:search?", artworksDetailsApiController.searchArtworks); // search artworks from the api (InstitueChicageAPI) (v2.0 -> ... or the user collection)
+artworksDetailsApiRouter.get("/search?", artworksDetailsApiController.searchArtworks); // search artworks from the api (InstitueChicageAPI) (v2.0 -> ... or the user collection)
 //POSTs
 artworksDetailsApiRouter.post("/artwork", artworksDetailsApiController.createNewArtworkDetails);// create artwork (add artwork to MongoDB)
 //PUTs

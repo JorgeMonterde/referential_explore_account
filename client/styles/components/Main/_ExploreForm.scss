@@ -1,0 +1,24 @@
+@import '../../utils/mixins.scss';
+@import '../../utils/variables.scss';
+
+.explore-form{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: $card-background-color;
+    padding:10px;
+    margin:10px;
+
+    &>#search{
+        width: 75%;
+    }
+    &>#submit{
+        width: auto;
+    }
+
+
+    
+
+}

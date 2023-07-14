@@ -21,41 +21,46 @@ import axios from "axios";
 
 
 const ExploreForm = (props) => {
-  const {setArtworksInfo} = props;
-  const [search, setSearch] = useState("");
+  const {addArtworksInfo, searchProps, addTotalItems} = props;
+  const {search, setSearch} = searchProps;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newSearch = event.target.search.value;
-    // update "weatherForm" state with search
+
     setSearch(newSearch);
   };
 
   useEffect(() => {
       const getArtworksInfo = async(search) => {
+        const limit = 20;
+
         // get artwork info from api
-        const response = await axios.get(`api/artworks/search/${search}`);
-        
+        const response = await axios.get(`api/artworks/search?search=${search}&page=0&limit=${limit}`);
         if(response.data.success){
-          setArtworksInfo(response.data.data);
-          console.log(response.data.message)
+          addArtworksInfo(response.data.data);
+          addTotalItems(response.data.total);
+          console.log(response.data.message, response.data.total)
         } else {
           console.log("Something went wrong...")
         }
-        
       };
-      console.log("---->",search)
-      getArtworksInfo(search);
+
+      if(search){
+        console.log("---->",search)
+        getArtworksInfo(search);
+      }
+      
   }, [search])
 
-
+  
 
 
 
   return (
   <form className="explore-form" onSubmit={handleSubmit}>
     <input type="text" name="search" id="search" placeholder="search"/>
-    <input type="submit" value="Send search" />
+    <input type="submit" id="submit" value="Send search" />
   </form>
   );
 };

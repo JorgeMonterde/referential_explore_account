@@ -1,0 +1,48 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.card{
+
+    display: flex;
+    flex-direction: column;
+    background-color: $card-background-color;
+    padding:10px;
+
+
+
+    &>a{
+        font-size: $card-title-fontsize;
+        font-family: $normal-font;
+        color: $card-title-color;
+
+        border-bottom: 1px solid black;
+
+        padding: 0%;
+        padding-bottom: 5px;
+        margin: 0;
+        margin-bottom: 10px;
+        
+    }
+    &>img{
+        /* width:100%; */
+        height: auto;
+    }
+
+    &>p{
+        
+        padding: 0%;
+        margin: 0;
+        padding-top: 5px;
+
+        font-size: $card-text-fontsize;
+        font-family:$card-info-font;
+        font-style: italic;
+        color:$card-text-color;
+
+
+    }
+    &>.author{
+        font-weight:bold;
+    }
+
+}

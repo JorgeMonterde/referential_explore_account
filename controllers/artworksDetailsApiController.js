@@ -6,17 +6,19 @@ const ArtworkDetails = require('../models/artworksDetails');  //model from NoSQL
 
 //auxiliar function: ------------------------------> "module.exports" dont allow to nest imports from different files...?!
 // get artworks from Art Institute of Chicago API:
-async function getSearchResults(word){
+async function getSearchResults(word, limit, page){
     console.log("1º: ", word)
     let artworkIds = [];
     let iiifUrlConfig;
-    let searchResults = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${word}`)
+    let totalItems = 0;
+    let searchResults = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${word}&page=${page}&limit=${limit}`)
         .then(res => res.json())
         .then(info => {
             info.data.forEach(item => artworkIds.push(item.id));
             iiifUrlConfig = info.config.iiif_url;
+            totalItems = info.pagination.total;
         });
-    return {artworkIds, iiifUrlConfig};
+    return {artworkIds, iiifUrlConfig, totalItems};
 };
 
 async function getCompleteArtworkInfo(results){
@@ -51,10 +53,10 @@ async function getImagesSrc(artworkInfo, results){
     return imageIdArr;
 };
 
-async function searchArtworksFromExternalAPI(word){
+async function searchArtworksFromExternalAPI(word, limit, page){
     try {
         // Get results brief Info:
-        let results = await getSearchResults(word);
+        let results = await getSearchResults(word, limit, page);
         // Get complete Info:
         let artworkInfo = await getCompleteArtworkInfo(results);  
         //Get images src:
@@ -64,8 +66,8 @@ async function searchArtworksFromExternalAPI(word){
         for(let i=0; i<artworkInfo.length; i++){
             artworksDetails.push({"info": artworkInfo[i], "img": imgSrcArr[i]});
         }
-
-        return artworksDetails;
+        
+        return {"items": artworksDetails, "total": results.totalItems};
     } catch (error){
         console.log(`Error: ${error}`)
     }
@@ -76,23 +78,25 @@ async function searchArtworksFromExternalAPI(word){
 //GETs
 // get artworks details searching by a word:
 const searchArtworks = async (req,res) => {
-    const search = req.params.search;
-    console.log("search: ", search)
+    const {search, limit, page} = req.query;
+    console.log("queries: ", req.query)
     try {
-        let data = await searchArtworksFromExternalAPI(search); //[{"info": artworkInfo[i], "img": imgSrcArr[i]}, {}, {}, ...]
-        if (!data[0]){
+        let data = await searchArtworksFromExternalAPI(search, limit, page); //[{"info": artworkInfo[i], "img": imgSrcArr[i]}, {}, {}, ...]
+        if (!data.items[0]){
             console.log("Artworks not found :(");
             res.status(204).json({
                 "success": true,
-                "message": `No artworks found while searching by "${search}": ${data}`,
-                "data":data
+                "message": `No artworks found while searching by "${search}"`,
+                "data":data.items,
+                "total":data.total
             });
         } else {
             //console.log("Artworks found: ", data);
             res.status(200).json({
                 "success": true,
                 "message": "Artworks info supplied",
-                "data": data
+                "data": data.items,
+                "total":data.total
             });
         }
     } catch (error) {

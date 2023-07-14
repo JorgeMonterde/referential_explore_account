@@ -1,0 +1,15 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.card-list{
+    padding: 0;
+    margin: 0%;
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); 
+    gap: 10px;
+    
+
+    
+
+}
