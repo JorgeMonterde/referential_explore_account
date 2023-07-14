@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Account from "./Account";
+import Profile from "./Profile";
 
-describe("Account", () => {
+describe("Profile", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<Account />);
+    const wrapper = shallow(<Profile />);
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,0 +1,60 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+    
+
+
+.account{
+    border: solid black 1px;
+
+    padding: 0;
+    margin: 0%;
+    width:100%;
+    display:grid;
+    
+    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(22em, 1fr));
+
+    &>.part-a{
+        border: solid black 1px;
+
+        padding: 0;
+        margin: 0%;
+        width:100%;
+        display:grid;
+        grid-template-columns: 50% 50%;
+
+        &>.titles-and-aux{
+            border: solid black 1px;
+
+            padding: 0;
+            margin: 0%;
+            width:100%;
+            display:grid;
+            grid-template-rows:min-content auto;
+
+            &>.titles{
+                border: solid black 1px;
+            }
+            &>.aux{
+                border: solid black 1px;
+
+                padding: 0;
+                margin: 0%;
+                width:100%;
+
+                &>img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &>.part-b{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+
+    }
+
+}

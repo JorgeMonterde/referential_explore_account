@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import Home from "./Home/Home";
 import Explore from "./Explore/Explore";
 import Details from "./Details/Details";
-import Account from "./Account/Account";
+import Projects from "./Projects/Projects";
+import Profile from "./Profile/Profile";
 
 
 const Main = () => {
@@ -15,7 +16,8 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
-        <Route path="/account/:subsection" element={<Account />} />
+        <Route path="/account/projects" element={<Projects />} />
+        <Route path="/account/profile" element={<Profile />} />
         <Route path="/details/:id" element={<Details />} />
       </Routes>
     </main>

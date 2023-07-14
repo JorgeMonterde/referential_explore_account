@@ -22,7 +22,7 @@ const NavBar = () => {
     <ul className="link-list">
       <li><Link className={`link nav-link ${page == "home"? "visiting" : ""}`} to="/" onClick={handleClickHome}>Referential</Link></li>
       <li><Link className={`link nav-link ${page == "explore"? "visiting" : ""}`} to="/explore" onClick={handleClickExplore}>/Explore</Link></li>
-      <li><Link className={`link nav-link ${page == "account"? "visiting" : ""}`} to="/account/profile" onClick={handleClickAccount}>/Account</Link></li>
+      <li><Link className={`link nav-link ${page == "account"? "visiting" : ""}`} to="/account/projects" onClick={handleClickAccount}>/Account</Link></li>
     </ul>
   </nav>
   );
