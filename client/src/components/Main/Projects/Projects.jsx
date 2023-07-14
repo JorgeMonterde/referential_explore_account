@@ -1,7 +1,42 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Projects = () => {
 
+
+const Projects = (props) => {
+  const {authState} = props;
+  const navigate = useNavigate();
+      
+  
+
+  useEffect(() => {
+
+    const getProjects = async() => {
+
+      // get projects from db
+      const response = await axios.get("/api/users/project");
+      
+      console.log("response:", response.data);
+      if(response.data.auth){
+        console.log("hello");
+        
+      } else {
+        navigate("/login");
+      }
+    };
+    getProjects();
+}, [])
+
+  
+
+
+
+
+
+  const printProjects = () => {
+
+  };
 
 
   return (
@@ -19,6 +54,8 @@ const Projects = () => {
           </div>
         </div>
         <div className="info">
+          {/* {printProfile()} */}
+          {printProjects()}
           <p>Some info here</p>
           <p>Some info here</p>
           <p>Some info here</p>

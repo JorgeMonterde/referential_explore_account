@@ -25,13 +25,21 @@ const authCheck = (req, res, next) => {
                 req.logout(function(err) {
                     if (err) { return next(err); }
                     req.session.destroy();
-                    res.clearCookie("access-token").redirect('/login');
+                    res.clearCookie("access-token").json({
+                        "success": false,
+                        "message": "Invalid token",
+                        "auth":false
+                    });
                 });
             }
         })
     } else {
         console.log("Token not provided");
-        res.redirect("/login");
+        res.status(401).json({
+            "success": false,
+            "message": "Token not provided",
+            "auth":false
+        });
     }
 }
 

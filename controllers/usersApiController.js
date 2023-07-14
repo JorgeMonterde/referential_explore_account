@@ -1,4 +1,6 @@
+const bcrypt = require("bcrypt");
 const users = require("../models/users");
+const saltRounds = 10;
 
 
 //GETs
@@ -22,20 +24,30 @@ const getUserInfo = async (req,res) => {
     }
 }
 
+
 //POSTs
 //create user
 const createUser = async (req,res) => {
-    let {email, hashed_password, user_name, admin, firstname, surname} = req.body; // {email, password, user_name, admin, firstname, surname}
+    let {email, password, user_name, firstname, surname} = req.body.data; // {email, password, user_name, admin, firstname, surname}
+    const hashed_password = await bcrypt.hash(password, saltRounds);
     try {
         // "user_id" is automatically added by SQL DDBB
+        let admin = false;
         let logged = false;
         let createInfo = await users.createUser(email, hashed_password, user_name, admin, firstname, surname, logged);
-        
-        res.status(200).json({
-            "success": true,
-            "message": `User created: ${createInfo}`,
-            "data":createInfo
-        });
+        if(createInfo){
+            res.status(200).json({
+                "success": true,
+                "message": `User created: ${createInfo}`,
+                "data":createInfo
+            });
+        } else {
+            res.status(400).json({
+                "success": false,
+                "message": `Could not create user: ${createInfo}`,
+                "data":createInfo
+            });
+        }
     } catch (error) {
         console.log(`Error: ${error}`);
         res.status(400).json({

@@ -3,6 +3,8 @@ const authRouter = express.Router();
 const authController = require ('../controllers/authController');
 const authMiddleware = require("../middlewares/authMiddleware");
 
+/* //Is user log in ?
+authRouter.get('/check', authMiddleware.authCheck, authController); */
 
 //GOOGLE - PASSPORT OAUTH
 //Renders Google prompt with accounts

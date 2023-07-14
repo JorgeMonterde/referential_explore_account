@@ -10,6 +10,9 @@ let domain = process.env.DOMAIN;
 const saltRounds = 10;
 
 
+
+
+
 //GOOGLE OAUTH
 //Esta ruta tiene dos funciones, la primera es en caso de fallo nos redirecciona a /auth/failure, y la segunda, en caso de éxito realiza la función siguiente.
 const promptGoogleAccounts = passport.authenticate("google", { scope: ['email', 'profile'], prompt: "select_account" });

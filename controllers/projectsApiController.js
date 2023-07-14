@@ -9,13 +9,20 @@ const getUserProjectsIds = async (req,res) => {
         let data = await projects.getAllProjects(id_user);
         if (!data[0]){
             console.log("There are no projects");
+            res.status(200).json({
+                "success": true,
+                "message": "There are no projects",
+                "data": data,
+                "auth":true
+            });
         } else {
             //let projectIdArr = data.map(item => item.project_id);
             console.log("Array of projects: ", data);
             res.status(200).json({
                 "success": true,
-                "message": `Projects ids supplied`,
-                "data": data
+                "message": `Projects supplied`,
+                "data": data,
+                "auth":true
             });
         }
     } catch (error) {
@@ -23,7 +30,8 @@ const getUserProjectsIds = async (req,res) => {
         res.status(400).json({
             "success": false,
             "message": `Error: ${error}`,
-            "data": ""
+            "data": "",
+            "auth":true
         });
     }
 }
