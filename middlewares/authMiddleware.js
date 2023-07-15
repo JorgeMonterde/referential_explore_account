@@ -9,7 +9,9 @@ const saltRounds = 10;
 
 
 const authCheck = (req, res, next) => {
+    console.log("Token", req.cookies["access-token"])
     const token = req.cookies["access-token"];
+
     if(token){
         jwt.verify(token, jwtSecret, async (err, decoded) => {
             //console.log("decoded -----> ", decoded);
@@ -84,17 +86,19 @@ const adminAuthCheck = (req, res, next) => {
 
 const checkEmailLogIn = async(req, res, next) => {
     let {email, password} = req.body;
+    console.log("check email login: ", email, password)
     try {
         let data = await users.getUserByEmail(email);
         if(!data){
             console.log("This email do not have an account");
             res.status(401).json({"success": false, "msj":"This email do not have an account"});
         } else {
-            const match = await bcrypt.compare(password, data.password);
+            console.log("match??", password, data.hashed_password);
+            const match = await bcrypt.compare(password, data.hashed_password);
             if(match){
-                await users.logInUserTrue(email);
+                const result = await users.logInUserTrue(email);
                 req.user = {email};
-                console.log("++++++>>>", data);
+                console.log("++++++>>>", result);
                 next();
             } else {
                 res.status(400).json({ msg: 'Incorrect user or password'});

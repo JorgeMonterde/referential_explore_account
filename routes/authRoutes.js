@@ -3,6 +3,8 @@ const authRouter = express.Router();
 const authController = require ('../controllers/authController');
 const authMiddleware = require("../middlewares/authMiddleware");
 
+//Route: /auth
+
 /* //Is user log in ?
 authRouter.get('/check', authMiddleware.authCheck, authController); */
 

@@ -34,7 +34,7 @@ const authRoutes = require('./routes/authRoutes');
 app.use(express.json()); // Enable data type to receive
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); //Better access to cookies
-app.use(cors()) //Enable all CORS requests
+app.use(cors({credentials: true, origin: process.env.FRONTEND_DOMAIN})) //Enable all CORS requests
 
 //Routes 
 app.use('/api/users/user',usersApiRoutes); // Users routes

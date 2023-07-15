@@ -13,7 +13,7 @@ CREATE TABLE users (
   first_name varchar(45) NOT NULL, 
   surname varchar(100),
   email varchar(45) NOT NULL UNIQUE, 
-  hashed_password varchar(100) NOT NULL, 
+  hashed_password varchar(200) NOT NULL, 
   admin boolean NOT NULL, 
   logged boolean NOT NULL
 );

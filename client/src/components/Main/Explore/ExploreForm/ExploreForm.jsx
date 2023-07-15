@@ -24,6 +24,7 @@ const ExploreForm = (props) => {
   const {addArtworksInfo, searchProps, addTotalItems} = props;
   const {search, setSearch} = searchProps;
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newSearch = event.target.search.value;

@@ -13,20 +13,17 @@ const Projects = (props) => {
   useEffect(() => {
 
     const getProjects = async() => {
-
       // get projects from db
-      const response = await axios.get("/api/users/project");
-      
-      console.log("response:", response.data);
-      if(response.data.auth){
-        console.log("hello");
-        
-      } else {
+      try {
+        const response = await axios.get("http://localhost:3000/api/users/project", { withCredentials: true });
+        console.log("response:", response.data);
+      } catch (error){
+        console.log("Error: ", error);
         navigate("/login");
       }
     };
     getProjects();
-}, [])
+  }, [])
 
   
 

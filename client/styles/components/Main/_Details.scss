@@ -1,2 +1,73 @@
 @import '../../utils/variables.scss';
 @import '../../utils/mixins.scss';
+
+.details{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    padding:0;
+    margin:0;
+
+
+    &>.details-controls{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+
+    }
+
+    &>.details-display{
+        border: 1px solid black;
+        padding: 0;
+        margin: 0%;
+        width:100%;
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); 
+        gap: 10px;
+        
+        &>.required-card{
+            display: flex;
+            flex-direction: column;
+            background-color: $card-background-color;
+            padding:10px;
+
+            &>h3{
+                font-size: $card-title-fontsize;
+                font-family: $normal-font;
+                color: $card-title-color;
+
+                border-bottom: 1px solid black;
+
+                padding: 0%;
+                padding-bottom: 5px;
+                margin: 0;
+                margin-bottom: 10px;
+                
+            }
+            &>img{
+                /* width:100%; */
+                height: auto;
+            }
+
+            &>p{
+                padding-top: 5px;
+                font-size: $card-text-fontsize;
+                font-family:$card-info-font;
+                font-style: italic;
+                color:$card-text-color;
+
+            }
+            &>.author{
+                font-weight:bold;
+            }
+            &>.card-controls{
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+
+                
+            }
+            
+        }
+    }
+}

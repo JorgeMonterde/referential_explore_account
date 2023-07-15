@@ -46,8 +46,15 @@
 }
 
 @mixin card-controls{
-    background-color: rgb(163, 163, 163);
-    display: flex;
+    color: $button-color;
+    background-color:none;
+    border: $button-border;
+    width:min-content;
+    
+    &:hover{
+        color: $button-hover-color;
+        background-color: $button-hover-background-color;
+    }
     
 
 }

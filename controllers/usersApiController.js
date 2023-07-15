@@ -28,7 +28,7 @@ const getUserInfo = async (req,res) => {
 //POSTs
 //create user
 const createUser = async (req,res) => {
-    let {email, password, user_name, firstname, surname} = req.body.data; // {email, password, user_name, admin, firstname, surname}
+    let {email, password, user_name, firstname, surname} = req.body.data;
     const hashed_password = await bcrypt.hash(password, saltRounds);
     try {
         // "user_id" is automatically added by SQL DDBB

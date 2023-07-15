@@ -11,6 +11,7 @@ import Card from "./Card/Card";
 const CardList = (props) => {
   const {artworksInfo} = props;
 
+
   const formatInfo = (artworksInfo) => {
     console.log(artworksInfo)
     const {img, info} = artworksInfo; 
@@ -28,7 +29,7 @@ const CardList = (props) => {
     let key1 = uuidv4();
     let key2 = uuidv4();
     const info = formatInfo(artworkInfo);
-    return (<li key={key2}><Card key={key1} info={info}/></li>)
+    return (<li key={key2}><Card key={key1} info={info} rawInfo={artworkInfo}/></li>)
     }
   );
 

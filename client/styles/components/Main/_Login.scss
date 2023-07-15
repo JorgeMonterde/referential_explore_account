@@ -1,0 +1,19 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.login{
+
+
+    &>.auth-google{
+
+        &>a{
+            
+        
+        }
+        &>img{
+            width:1em;
+
+        
+        }
+    }
+}

@@ -11,8 +11,8 @@ import Login from "./Login/Login";
 
 
 const Main = () => {
+  //auth state
   const [auth, setAuth] = useState(false);
-
   const authState = {auth, setAuth};
 
 
@@ -21,10 +21,10 @@ const Main = () => {
     <main>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/account/projects" element={<Projects authState={authState}/>} />
-        <Route path="/account/profile" element={<Profile authState={authState}/>} />
-        <Route path="/details/:id" element={<Details />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/account/projects" element={<Projects authState={authState}/>} />
+          <Route path="/account/profile" element={<Profile authState={authState}/>} />
+          <Route path="/details/:id" element={<Details />} />
         <Route path="/login" element={<Login authState={authState}/>} />
       </Routes>
     </main>
