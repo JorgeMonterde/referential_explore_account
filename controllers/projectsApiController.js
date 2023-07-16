@@ -5,8 +5,8 @@ const projects = require("../models/projects");
 // get projects Ids with user id:
 const getUserProjectsIds = async (req,res) => {
     try {
-        let {id_user} = req.decoded.data;
-        let data = await projects.getAllProjects(id_user);
+        let {user_id} = req.decoded.data;
+        let data = await projects.getAllProjects(user_id);
         if (!data[0]){
             console.log("There are no projects");
             res.status(200).json({
@@ -39,14 +39,14 @@ const getUserProjectsIds = async (req,res) => {
 //POSTs
 //save project to list (user)
 const createProject = async(req,res) => {
-    let {id_user} = req.decoded.data;
-    let {id_project, title, specification} = req.body;
+    let {user_id} = req.decoded.data;
+    let {title, specification} = req.body;
     try {
-        let savedInfo = await projects.addProject(id_user, id_project, title, specification); 
+        let savedInfo = await projects.addProject(user_id, title, specification); 
 
         res.status(200).json({
             "success": true,
-            "message": `user id:${id_user} created a new project with id:${id_project}`,
+            "message": `user id:${user_id} created a new project with title:${title}`,
             "data": savedInfo
         });
     } catch (error) {
@@ -63,7 +63,7 @@ const createProject = async(req,res) => {
 // Edit project info (user and admin)
 const editProjectInfo = async (req,res) => {
     try {
-        let {id_user} = req.decoded.data;
+        let {user_id} = req.decoded.data;
         let {projectId, title, specification} = req.body;
         // If a field is not filled, do it with the current value:
         // get previous project info and paste it on the empty fields
@@ -92,14 +92,14 @@ const editProjectInfo = async (req,res) => {
 //DELETEs
 // Delete user's project from DDBB (user)
 const deleteProject = async(req, res) => {
-    let {id_user} = req.decoded.data;
+    let {user_id} = req.decoded.data;
     let {id_project} = req.body;
     try {
         let deletedInfo = await projects.deleteProject(id_project);
         console.log(deletedInfo)
         res.status(200).json({
             "success": true,
-            "message": `user id:${id_user} deleted project with id:${id_project}`,
+            "message": `user id:${user_id} deleted project with id:${id_project}`,
             "data": deletedInfo
         });
     } catch (error) {

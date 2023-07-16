@@ -50,6 +50,8 @@
     background-color:none;
     border: $button-border;
     width:min-content;
+    font-size: 0.9em;
+    
     
     &:hover{
         color: $button-hover-color;
@@ -57,4 +59,23 @@
     }
     
 
+}
+
+@mixin extra-card{
+    display: flex;
+    flex-direction: column;
+    background-color: $extra-card-background-color;
+    padding:10px;
+    justify-content: space-between;
+    
+    &>h4{
+        border-bottom: 1px solid black;
+
+        padding: 0%;
+        padding-bottom: 9px;
+        margin: 0;
+        margin-bottom: 10px;  
+
+    }
+    
 }

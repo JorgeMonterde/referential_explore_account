@@ -72,13 +72,13 @@ const getUserArtworks = async (req,res) => {
 //Add artwork to a project (user)
 const addArtworkToProject = async(req,res) => {
     let {user_id} = req.decoded.data;
-    let {projectId, artworkId, artworkMongoId} = req.body;
+    let {projectId, artworkMongoId} = req.body;
     try {
-        let savedInfo = await artworks.addArtworkToProject(projectId, artworkId, artworkMongoId);
+        let savedInfo = await artworks.addArtworkToProject(projectId, artworkMongoId);
         console.log(savedInfo);
         res.status(201).json({
             "success": true,
-            "message": `Artwork (id1: ${artworkId}, id2: ${artworkMongoId}) added to project: ${projectId}`,
+            "message": `Artwork (id: ${artworkMongoId}) added to project: ${projectId}`,
             "data": savedInfo
         });
     } catch (error) {

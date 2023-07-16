@@ -4,7 +4,11 @@
 @import './components/Main/Main';
 @import './components/Main/Home';
 @import "./components/Main/Projects";
-@import "./components/Main/Details";
+
+@import "./components/Main/Details/Details";
+@import "./components/Main/Details/DetailsControls";
+@import "./components/Main/Details/Popover";
+
 @import "./components/Main/Explore";
 @import "./components/Main/Pagination";
 @import "./components/Main/ExploreForm";

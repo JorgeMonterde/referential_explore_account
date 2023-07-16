@@ -114,9 +114,11 @@ const searchArtworks = async (req,res) => {
 //POSTs
 //Add artwork details to database (user or admin)
 const createNewArtworkDetails = async (req,res) => {
+    let {user_id} = req.decoded.data;
     console.log("Check new artwork details: ", req.body);
     let {artworkInfo, isPublic, creatorId} = req.body;
     let {title, author, description, year, media, dimensions, mediumDisplay, frontImage, otherImages, coord} = artworkInfo;
+    
     try {
         const newArtworkDetails = new ArtworkDetails({
             "artwork_info": {
@@ -132,14 +134,14 @@ const createNewArtworkDetails = async (req,res) => {
                 "coord": coord
             },
             "is_public": isPublic,
-            "creator_id": creatorId
+            "creator_id": user_id
         });
         const data = await newArtworkDetails.save();
         console.log(`Artwork details saved: ${data}`);
         res.status(201).json({
             "success": true,
             "message": `Artwork details created: ${data}`,
-            "daya": data
+            "data": data
         });
 
     } catch (error) {

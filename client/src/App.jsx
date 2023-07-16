@@ -12,24 +12,14 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 
-//contexts
-import { DetailsContext } from "../context/detailsContext";
-
 
 function App() {
-  
-//details state
-  const [details, setDetails] = useState({});
-  const detailsState = {details, setDetails};
-
 
   return (
     <>
       <BrowserRouter>
         <Header />
-        <DetailsContext.Provider value={{detailsState}} >
-          <Main />
-        </DetailsContext.Provider>
+        <Main />   
         <Footer />
       </BrowserRouter>
     </>

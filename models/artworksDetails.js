@@ -11,7 +11,6 @@ const objectSchema = {
         },
         author: {
             type: String,
-            required: true
         },
         media: {
             type: String,
@@ -25,7 +24,7 @@ const objectSchema = {
             type: String,
         },
         year: {
-            type: Number
+            type: String
         },
         dimensions: {
             type: String

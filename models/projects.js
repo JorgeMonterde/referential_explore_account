@@ -3,11 +3,12 @@ const projectsQueries = require("../queries/projects.queries");
 
 
 // Add a project to user's projects list (user)
-const addProject = async(userId, projectId, title, specification) => {
+const addProject = async(userId, title, specification) => {
     let client, result;
     try{
+        console.log("new projeeeect: ",userId, title, specification);
         client = await pool.connect();
-        const data = await client.query(projectsQueries.addProject,[userId, projectId, title, specification]);
+        const data = await client.query(projectsQueries.addProject,[userId, title, specification]);
         result = data.rowCount;
         console.log("add project: ", result);
     }catch(err){

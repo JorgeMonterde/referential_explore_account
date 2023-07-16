@@ -14,6 +14,8 @@ $parents-border-radius: 24px;
 $children-border-radius: 12px;
 $grandchildren-border-radius: 12px;
 
+
+
 $input-border-color: rgb(223, 223, 223);
 $input-border-radius: 6px;
 
@@ -25,11 +27,13 @@ $card-title-color: black;
 $card-text-color: black;
 $card-background-color: rgb(252, 252, 252);
 
-
-$required-card-border-color: rgb(189, 0, 0);
-$required-card-info-border-radius: 10px;
-$required-card-img-width: 70%;
-$required-card-name-id-padding-bot: 0%;
+$extra-card-border-radius: 12px;
+$extra-card-border-color: rgb(223, 223, 223);
+$extra-card-title-fontsize: 1.2em;
+$extra-card-text-fontsize: 1.0em;
+$extra-card-title-color: black;
+$extra-card-text-color: black;
+$extra-card-background-color: rgb(247, 247, 247);
 
 $close-button-radius: 30px;
 $button-color: rgb(0, 0, 0);

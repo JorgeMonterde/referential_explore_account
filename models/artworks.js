@@ -37,11 +37,11 @@ const getAllArtworksIDsFromUser = async(projectId) => {
 }
 
 // Add an artwork to a user's project (user)
-const addArtworkToProject = async(projectId, artworkId, artwork_mongoId) => {
+const addArtworkToProject = async(projectId, artwork_mongoId) => {
     let client, result;
     try{
         client = await pool.connect();
-        const data = await client.query(artworksQueries.addArtworkToProject,[projectId, artworkId, artwork_mongoId]);
+        const data = await client.query(artworksQueries.addArtworkToProject,[projectId, artwork_mongoId]);
         result = data.rowCount;
         console.log("add artwork: ", result);
     }catch(err){

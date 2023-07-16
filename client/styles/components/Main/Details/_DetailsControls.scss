@@ -1,0 +1,11 @@
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
+
+
+
+.details-controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+}

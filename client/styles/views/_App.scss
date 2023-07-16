@@ -60,7 +60,12 @@ input{
     border-radius: $input-border-radius;
     padding: 5px;
     margin: 2px;
+    font-family: arial;
+    font-size: 0.85em;
+    
+    
 }
+
 
 a{
     text-decoration: none;
@@ -71,6 +76,7 @@ button {
     background-color: $button-hover-color;
     color: $button-hover-background-color;
     cursor:pointer;
+    font-family: arial;
 }
 
 //classes

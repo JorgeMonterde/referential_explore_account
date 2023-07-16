@@ -1,10 +1,9 @@
 const projectsQueries = {
     addProject:`INSERT INTO projects(
         user_id,
-        project_id,
         title,
         specification)
-    VALUES ($1, $2, $3, $4)`,
+    VALUES ($1, $2, $3)`,
     deleteProject:`DELETE FROM projects
     WHERE project_id=$1`,
     getAllProjects:`SELECT project_id,

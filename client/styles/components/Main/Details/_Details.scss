@@ -1,5 +1,5 @@
-@import '../../utils/variables.scss';
-@import '../../utils/mixins.scss';
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
 
 .details{
     display:flex;
@@ -8,21 +8,14 @@
     padding:0;
     margin:0;
 
-
-    &>.details-controls{
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-
-    }
-
     &>.details-display{
-        border: 1px solid black;
         padding: 0;
         margin: 0%;
         width:100%;
         display:grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); 
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+        
+        
         gap: 10px;
         
         &>.required-card{
@@ -68,6 +61,33 @@
                 
             }
             
+        }
+
+        &>.extra-card{
+            //border: 1px solid black;
+            @include extra-card;
+            
+            max-height: 70vh;
+            
+            &>.written-content{
+                align-content:flex-end;
+                justify-content: end;
+                justify-items: end;
+                align-items: end;
+                align-content:end;
+
+                
+                padding-top: 30px;
+                overflow: scroll;
+                height: 100%;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                  }
+
+                
+
+            }
         }
     }
 }

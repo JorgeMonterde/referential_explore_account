@@ -17,7 +17,7 @@ const authCheck = (req, res, next) => {
             //console.log("decoded -----> ", decoded);
             let {email} = decoded;
             let data = await users.getUserByEmail(email);
-            //console.log("data: ",data)
+            console.log("data: ",data)
             if(data.logged == true) {
                 req.decoded = decoded;
                 req.decoded.data = data;
@@ -30,7 +30,8 @@ const authCheck = (req, res, next) => {
                     res.clearCookie("access-token").json({
                         "success": false,
                         "message": "Invalid token",
-                        "auth":false
+                        "auth":false,
+                        "data":""
                     });
                 });
             }
@@ -40,7 +41,8 @@ const authCheck = (req, res, next) => {
         res.status(401).json({
             "success": false,
             "message": "Token not provided",
-            "auth":false
+            "auth":false,
+            "data":""
         });
     }
 }

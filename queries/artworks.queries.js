@@ -1,9 +1,8 @@
 const artworksQueries = {
     addArtworkToProject:`INSERT INTO artworks(
         project_id,
-        artwork_id,
         artwork_mongo_id)
-    VALUES ($1, $2, $3)`,
+    VALUES ($1, $2)`,
     deleteArtworkFromProject:`DELETE FROM artworks
     WHERE project_id=$1 AND artwork_id=$2`,
     getAllArtworksIDsFromProject:`SELECT artwork_id,

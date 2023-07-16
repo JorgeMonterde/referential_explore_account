@@ -1,13 +1,20 @@
-import React, {useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useContext} from "react";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-
+//util functions
+import { v4 as uuidv4 } from "uuid";
+//contexts
+import { UserProjectsContext } from "../../../../context/userProjectsContext";
+//components
+import NewProjectButton from "./NewProjectButton/NewProjectButton";
 
 
 const Projects = (props) => {
   const {authState} = props;
   const navigate = useNavigate();
-      
+  const {userProjectsState} = useContext(UserProjectsContext);
+  const userProjects = userProjectsState.userProjects;
+  
   
 
   useEffect(() => {
@@ -33,6 +40,13 @@ const Projects = (props) => {
 
   const printProjects = () => {
 
+    return (
+      <>
+        <NewProjectButton/>
+        {userProjects.map(project => <button key={uuidv4()}>{project}</button>)}
+      </>
+    )
+
   };
 
 
@@ -41,8 +55,9 @@ const Projects = (props) => {
       <article className="part-a">
         <div className="titles-and-aux">
           <div className="titles">
-            <p>Profile</p>
-            <p>Projects</p>
+          <p><Link className="subsection" to="/account/profile" >Profile</Link></p>
+          <p><Link className="subsection" to="/account/projects" >Projects</Link></p>
+
 
           </div>
           <div className="aux">
