@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import NewProject from "./NewProject";
+import NewProjectForm from "./NewProjectForm";
 
-describe("NewProject", () => {
+describe("NewProjectForm", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<NewProject />);
+    const wrapper = shallow(<NewProjectForm />);
     expect(wrapper).toMatchSnapshot();
   });
 });

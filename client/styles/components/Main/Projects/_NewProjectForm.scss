@@ -1,0 +1,12 @@
+@import '../../../utils/variables.scss';
+@import '../../../utils/mixins.scss';
+
+.new-project-function{
+    position: relative;
+    &>.new-project-form{
+        position:fixed;
+        top:30%;
+        left:50%;
+        
+    }
+}

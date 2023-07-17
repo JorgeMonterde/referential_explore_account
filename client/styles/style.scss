@@ -1,9 +1,11 @@
+
 @import './components/Header/Header';
 @import './components/Header/NavBar';
 
 @import './components/Main/Main';
 @import './components/Main/Home';
-@import "./components/Main/Projects";
+@import "./components/Main/Projects/Projects";
+@import "./components/Main/Projects/NewProjectForm";
 
 @import "./components/Main/Details/Details";
 @import "./components/Main/Details/DetailsControls";

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 //contexts
 import { UserProjectsContext } from "../../../../context/userProjectsContext";
 //components
-import NewProjectButton from "./NewProjectButton/NewProjectButton";
+import NewProjectButton from "./NewProjectForm/NewProjectForm";
 
 
 const Projects = (props) => {
@@ -33,7 +33,13 @@ const Projects = (props) => {
   }, [])
 
   
+  const newProjectForm = () => {
 
+  };
+
+  useEffect(() => {
+    console.log("O-O-O-O->", userProjects);
+  },[userProjects]);
 
 
 
@@ -42,8 +48,8 @@ const Projects = (props) => {
 
     return (
       <>
-        <NewProjectButton/>
-        {userProjects.map(project => <button key={uuidv4()}>{project}</button>)}
+        <NewProjectButton></NewProjectButton>
+        {userProjects.map(project => <button key={uuidv4()}>{project.title}</button>)}
       </>
     )
 
@@ -67,15 +73,8 @@ const Projects = (props) => {
         </div>
         <div className="info">
           {/* {printProfile()} */}
-          {printProjects()}
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
-          <p>Some info here</p>
+          {userProjects? printProjects() : "hello"}
+          
         </div>
       </article>
         
